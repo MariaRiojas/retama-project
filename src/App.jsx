@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronDown, FileText, Lightbulb, PenTool, Download, Sun, Moon } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ChevronDown, FileText, Lightbulb, PenTool, Download, Sun, Moon, Hammer } from 'lucide-react';
 import './index.css';
 
 import heroImg from './assets/portada.png';
@@ -11,10 +11,19 @@ import retamaImg from './assets/retama_0.jpg';
 import bocetosImg from './assets/bocetos.jpeg';
 import fichaTecnicaImg from './assets/ficha-tecnica.jpeg';
 import presentacionPdf from './assets/Presentacion-proyecto.pdf';
+import fabrica1Img from './assets/proceso-fabricacion-1.jpeg';
+import fabrica2Img from './assets/proceso-fabricacion-2.jpeg';
+import fabrica3Img from './assets/proceso-fabricacion-3.jpeg';
+import fabrica4Img from './assets/proceso-fabricacion-4.jpeg';
+import fabricaVideo from './assets/proceso-fabricacion-video.mp4';
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState('dark');
+
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 1000], [0, 300]);
+  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -33,8 +42,8 @@ function App() {
   }, []);
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 60 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.25, 0.1, 0.25, 1] } }
   };
 
   const staggerContainer = {
@@ -55,6 +64,7 @@ function App() {
           <a href="#ideas">Ideas</a>
           <a href="#bocetos">Bocetos</a>
           <a href="#ficha-tecnica">Ficha Técnica</a>
+          <a href="#fabricacion">Fabricación</a>
           <button onClick={toggleTheme} style={{ background: 'none', border: 'none', color: 'var(--text-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', marginLeft: '10px' }} aria-label="Cambiar Tema">
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
@@ -62,7 +72,7 @@ function App() {
       </nav>
 
       <section className="hero">
-        <img src={heroImg} alt="Hero Proyecto" className="hero-bg" />
+        <motion.img src={heroImg} alt="Hero Proyecto" className="hero-bg" style={{ y: heroY, opacity: heroOpacity }} />
         <div className="hero-overlay"></div>
         <motion.div 
           className="hero-content"
@@ -192,6 +202,42 @@ function App() {
               <Download size={24} />
               Descargar Presentación Completa (PDF)
             </a>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* 4. FABRICACIÓN (FOTOS Y VIDEO) */}
+      <section id="fabricacion" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+        >
+          <div className="project-text" style={{ textAlign: 'center', marginBottom: '50px' }}>
+            <motion.span className="section-subtitle" variants={fadeInUp}>04. Realización</motion.span>
+            <motion.h2 className="section-title" variants={fadeInUp}>Proceso de Fabricación</motion.h2>
+            <motion.p variants={fadeInUp} style={{ maxWidth: '800px', margin: '0 auto' }}>
+              Cada pieza de la silla Aureon Retama es moldeada y ensamblada combinando técnicas artesanales con procesos industriales para asegurar alta resistencia y un acabado premium.
+            </motion.p>
+          </div>
+          
+          <motion.div className="gallery-grid" variants={staggerContainer} style={{ marginBottom: '30px' }}>
+            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }} style={{ gridColumn: '1 / -1', height: '500px' }}>
+              <video src={fabricaVideo} autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
+            </motion.div>
+            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }}>
+              <img src={fabrica1Img} alt="Proceso 1" />
+            </motion.div>
+            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }}>
+              <img src={fabrica2Img} alt="Proceso 2" />
+            </motion.div>
+            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }}>
+              <img src={fabrica3Img} alt="Proceso 3" />
+            </motion.div>
+            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }}>
+              <img src={fabrica4Img} alt="Proceso 4" />
+            </motion.div>
           </motion.div>
         </motion.div>
       </section>
