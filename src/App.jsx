@@ -10,11 +10,15 @@ import retamaImg from './assets/retama_0.jpg';
 import bocetosImg from './assets/bocetos.jpeg';
 import baseImg from './assets/base.jpeg';
 import presentacionPdf from './assets/Presentacion-proyecto.pdf';
-import fabrica1Img from './assets/silla-detalle-1.jpeg';
-import fabrica2Img from './assets/silla-detalle-2.jpeg';
-import fabrica3Img from './assets/silla-detalle-3.jpeg';
-import fabrica4Img from './assets/silla-detalle-4.jpeg';
-import fabrica5Img from './assets/silla-detalle-5.jpeg';
+import fabrica1Img from './assets/proceso-fabricacion-1.jpeg';
+import fabrica2Img from './assets/proceso-fabricacion-2.jpeg';
+import fabrica3Img from './assets/proceso-fabricacion-3.jpeg';
+import fabrica4Img from './assets/proceso-fabricacion-4.jpeg';
+import ambiente1Img from './assets/silla-detalle-1.jpeg';
+import ambiente2Img from './assets/silla-detalle-2.jpeg';
+import ambiente3Img from './assets/silla-detalle-3.jpeg';
+import ambiente4Img from './assets/silla-detalle-4.jpeg';
+import ambiente5Img from './assets/silla-detalle-5.jpeg';
 import fabricaVideo from './assets/proceso-fabricacion-video.mp4';
 
 function App() {
@@ -57,8 +61,9 @@ function App() {
         <div className="nav-links" style={{ overflowX: 'auto', paddingBottom: '5px', alignItems: 'center' }}>
           <a href="#ideas">Inspiración</a>
           <a href="#bocetos">Diseño</a>
-          <a href="#ficha-tecnica">Estructura</a>
-          <a href="#fabricacion">Detalles</a>
+          <a href="#estructura">Estructura</a>
+          <a href="#fabricacion">Proceso</a>
+          <a href="#ambientes">Ambientes</a>
         </div>
       </nav>
 
@@ -162,7 +167,7 @@ function App() {
       </section>
 
       {/* 3. FICHA TÉCNICA */}
-      <section id="ficha-tecnica">
+      <section id="estructura">
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -212,19 +217,52 @@ function App() {
               <video src={fabricaVideo} autoPlay loop muted playsInline />
             </motion.div>
             <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
-              <img src={fabrica1Img} alt="Detalle 1" />
+              <img src={fabrica1Img} alt="Proceso 1" />
             </motion.div>
             <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
-              <img src={fabrica2Img} alt="Detalle 2" />
+              <img src={fabrica2Img} alt="Proceso 2" />
             </motion.div>
             <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
-              <img src={fabrica3Img} alt="Detalle 3" />
+              <img src={fabrica3Img} alt="Proceso 3" />
             </motion.div>
             <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
-              <img src={fabrica4Img} alt="Detalle 4" />
+              <img src={fabrica4Img} alt="Proceso 4" />
             </motion.div>
-            <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
-              <img src={fabrica5Img} alt="Detalle 5" />
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* 5. AMBIENTES */}
+      <section id="ambientes">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+        >
+          <div className="project-text" style={{ textAlign: 'center', marginBottom: '50px' }}>
+            <motion.span className="section-subtitle" variants={fadeInUp}>05. Proyecto Final</motion.span>
+            <motion.h2 className="section-title" variants={fadeInUp}>Diseño en el Espacio</motion.h2>
+            <motion.p variants={fadeInUp} style={{ maxWidth: '800px', margin: '0 auto' }}>
+              La silla Aureon Retama integrada en diferentes ambientes, destacando su versatilidad y su vibrante "amarillo sensible".
+            </motion.p>
+          </div>
+          
+          <motion.div className="carousel" variants={staggerContainer} style={{ marginBottom: '30px' }}>
+            <motion.div className="carousel-item" variants={fadeInUp}>
+              <img src={ambiente1Img} alt="Ambiente 1" />
+            </motion.div>
+            <motion.div className="carousel-item" variants={fadeInUp}>
+              <img src={ambiente2Img} alt="Ambiente 2" />
+            </motion.div>
+            <motion.div className="carousel-item" variants={fadeInUp}>
+              <img src={ambiente3Img} alt="Ambiente 3" />
+            </motion.div>
+            <motion.div className="carousel-item" variants={fadeInUp}>
+              <img src={ambiente4Img} alt="Ambiente 4" />
+            </motion.div>
+            <motion.div className="carousel-item" variants={fadeInUp}>
+              <img src={ambiente5Img} alt="Ambiente 5" />
             </motion.div>
           </motion.div>
         </motion.div>
