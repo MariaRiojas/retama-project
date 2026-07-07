@@ -271,7 +271,13 @@ function App() {
           <FadeIn><img src={finalImg} alt="Resultado Final" /></FadeIn>
         </div>
         <div className="full-bleed-section">
-          <FadeIn><img src={reflexionImg} alt="Reflexión" /></FadeIn>
+          <FadeIn>
+            <img 
+              src={reflexionImg} 
+              alt="Reflexión" 
+              style={{ width: '100%', height: '55vh', objectFit: 'cover', objectPosition: 'center' }} 
+            />
+          </FadeIn>
         </div>
       </section>
 
