@@ -63,7 +63,6 @@ function App() {
           <a href="#bocetos">Diseño</a>
           <a href="#estructura">Estructura</a>
           <a href="#fabricacion">Proceso</a>
-          <a href="#ambientes">Ambientes</a>
         </div>
       </nav>
 
@@ -119,18 +118,33 @@ function App() {
             </motion.div>
           </div>
 
-          <motion.div className="gallery-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))' }} variants={staggerContainer}>
-            <motion.div className="gallery-item" variants={fadeInUp}>
+          <motion.div className="carousel" variants={staggerContainer}>
+            <motion.div className="carousel-item gallery-item" variants={fadeInUp}>
               <img src={maquetaFrente} alt="Vista Frontal" />
               <div className="gallery-overlay">
                 <h3>Vista Frontal</h3>
               </div>
             </motion.div>
-            <motion.div className="gallery-item" variants={fadeInUp}>
+            <motion.div className="carousel-item gallery-item" variants={fadeInUp}>
               <img src={maquetaDetras} alt="Vista Posterior" />
               <div className="gallery-overlay">
                 <h3>Vista Posterior</h3>
               </div>
+            </motion.div>
+            <motion.div className="carousel-item gallery-item" variants={fadeInUp}>
+              <img src={ambiente1Img} alt="Ambiente 1" />
+            </motion.div>
+            <motion.div className="carousel-item gallery-item" variants={fadeInUp}>
+              <img src={ambiente2Img} alt="Ambiente 2" />
+            </motion.div>
+            <motion.div className="carousel-item gallery-item" variants={fadeInUp}>
+              <img src={ambiente3Img} alt="Ambiente 3" />
+            </motion.div>
+            <motion.div className="carousel-item gallery-item" variants={fadeInUp}>
+              <img src={ambiente4Img} alt="Ambiente 4" />
+            </motion.div>
+            <motion.div className="carousel-item gallery-item" variants={fadeInUp}>
+              <img src={ambiente5Img} alt="Ambiente 5" />
             </motion.div>
           </motion.div>
         </motion.div>
@@ -227,42 +241,6 @@ function App() {
             </motion.div>
             <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
               <img src={fabrica4Img} alt="Proceso 4" />
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* 5. AMBIENTES */}
-      <section id="ambientes">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={staggerContainer}
-        >
-          <div className="project-text" style={{ textAlign: 'center', marginBottom: '50px' }}>
-            <motion.span className="section-subtitle" variants={fadeInUp}>05. Proyecto Final</motion.span>
-            <motion.h2 className="section-title" variants={fadeInUp}>Diseño en el Espacio</motion.h2>
-            <motion.p variants={fadeInUp} style={{ maxWidth: '800px', margin: '0 auto' }}>
-              La silla Aureon Retama integrada en diferentes ambientes, destacando su versatilidad y su vibrante "amarillo sensible".
-            </motion.p>
-          </div>
-          
-          <motion.div className="carousel" variants={staggerContainer} style={{ marginBottom: '30px' }}>
-            <motion.div className="carousel-item" variants={fadeInUp}>
-              <img src={ambiente1Img} alt="Ambiente 1" />
-            </motion.div>
-            <motion.div className="carousel-item" variants={fadeInUp}>
-              <img src={ambiente2Img} alt="Ambiente 2" />
-            </motion.div>
-            <motion.div className="carousel-item" variants={fadeInUp}>
-              <img src={ambiente3Img} alt="Ambiente 3" />
-            </motion.div>
-            <motion.div className="carousel-item" variants={fadeInUp}>
-              <img src={ambiente4Img} alt="Ambiente 4" />
-            </motion.div>
-            <motion.div className="carousel-item" variants={fadeInUp}>
-              <img src={ambiente5Img} alt="Ambiente 5" />
             </motion.div>
           </motion.div>
         </motion.div>
