@@ -1,7 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, FileText, Lightbulb, PenTool, Download } from 'lucide-react';
 import Lenis from 'lenis';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCards, EffectCoverflow, Autoplay, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
 import './index.css';
 
 // --- IMAGES ---
@@ -51,39 +57,6 @@ const FadeIn = ({ children, delay = 0, className="" }) => {
   );
 };
 
-// Automatic Slide Carousel
-const AutoSlideCarousel = ({ children, className = "" }) => {
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    let index = 0;
-    
-    const interval = setInterval(() => {
-      if (container && container.children.length > 0) {
-        const itemWidth = container.children[0].offsetWidth + 30; // 30 is gap
-        index++;
-        if (index >= container.children.length) {
-          index = 0;
-          container.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          container.scrollTo({ left: index * itemWidth, behavior: 'smooth' });
-        }
-      }
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div ref={containerRef} className={`carousel-standard ${className}`}>
-      {children}
-    </div>
-  );
-};
-
-
-
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
@@ -122,6 +95,11 @@ function App() {
 
   return (
     <>
+      {/* AMBIENT GLOWS */}
+      <div className="glow-blob glow-1"></div>
+      <div className="glow-blob glow-2"></div>
+      <div className="glow-blob glow-3"></div>
+
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="logo">AUREON RETAMA</div>
         <div className="nav-links">
@@ -172,10 +150,10 @@ function App() {
           </FadeIn>
         </div>
         
-        <FadeIn><img src={storytellingImg} alt="Storytelling" className="slide-img" /></FadeIn>
+        <FadeIn><img src={storytellingImg} alt="Storytelling" className="slide-img slide-img-premium" /></FadeIn>
         
         <div className="grid-2-cols mt-50">
-          <FadeIn><img src={retamaImg} alt="Flor de Retama" style={{aspectRatio: '1/1', objectFit: 'cover'}}/></FadeIn>
+          <FadeIn><img src={retamaImg} alt="Flor de Retama" className="slide-img-premium" style={{aspectRatio: '1/1', objectFit: 'cover', width: '100%'}}/></FadeIn>
           <FadeIn delay={0.2}>
              <div style={{height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                 <h3 className="section-title-sm">Ergonomía Envolvente</h3>
@@ -184,7 +162,7 @@ function App() {
           </FadeIn>
         </div>
         
-        <FadeIn><img src={coloresImg} alt="Colores Silla" className="slide-img mt-50" /></FadeIn>
+        <FadeIn><img src={coloresImg} alt="Colores Silla" className="slide-img slide-img-premium mt-50" /></FadeIn>
       </section>
 
       {/* 2. DISEÑO & MAQUETAS */}
@@ -194,11 +172,11 @@ function App() {
           <FadeIn><h2 className="section-title">De la Idea a la Forma</h2></FadeIn>
         </div>
         
-        <FadeIn><img src={bocetosImg} alt="Bocetos" className="slide-img grayscale-img" /></FadeIn>
+        <FadeIn><img src={bocetosImg} alt="Bocetos" className="slide-img slide-img-premium grayscale-img" /></FadeIn>
         
         <div className="grid-2-cols mt-50">
-          <FadeIn delay={0.1}><img src={maquetaFrente} alt="Vista Frontal" /></FadeIn>
-          <FadeIn delay={0.2}><img src={maquetaDetras} alt="Vista Posterior" /></FadeIn>
+          <FadeIn delay={0.1}><img src={maquetaFrente} alt="Vista Frontal" className="slide-img-premium" style={{width: '100%'}} /></FadeIn>
+          <FadeIn delay={0.2}><img src={maquetaDetras} alt="Vista Posterior" className="slide-img-premium" style={{width: '100%'}} /></FadeIn>
         </div>
       </section>
 
@@ -209,13 +187,13 @@ function App() {
           <FadeIn><h2 className="section-title">Ingeniería y Soporte</h2></FadeIn>
         </div>
 
-        <FadeIn><img src={cuadroDespieceImg} alt="Cuadro de Despiece" className="slide-img grayscale-img" /></FadeIn>
-        <FadeIn><img src={armazonImg} alt="Armazón Estructural" className="slide-img grayscale-img" /></FadeIn>
-        <FadeIn><img src={baseSillaImg} alt="Estructura Base" className="slide-img grayscale-img" /></FadeIn>
+        <FadeIn><img src={cuadroDespieceImg} alt="Cuadro de Despiece" className="slide-img slide-img-premium grayscale-img" /></FadeIn>
+        <FadeIn><img src={armazonImg} alt="Armazón Estructural" className="slide-img slide-img-premium grayscale-img" /></FadeIn>
+        <FadeIn><img src={baseSillaImg} alt="Estructura Base" className="slide-img slide-img-premium grayscale-img" /></FadeIn>
         
         <div className="text-center mt-50">
           <FadeIn>
-            <img src={baseImg} alt="Base Foto" style={{width: '100%', maxWidth: '600px', margin: '0 auto', borderRadius: '8px'}} className="grayscale-img" />
+            <img src={baseImg} alt="Base Foto" style={{width: '100%', maxWidth: '600px', margin: '0 auto', borderRadius: '8px'}} className="slide-img-premium grayscale-img" />
           </FadeIn>
         </div>
         
@@ -234,37 +212,60 @@ function App() {
           <FadeIn><h2 className="section-title">Proceso de Fabricación</h2></FadeIn>
         </div>
         
-        <FadeIn><img src={carpinteriaImg} alt="Carpintería" className="slide-img grayscale-img" /></FadeIn>
-        <FadeIn><img src={detallesFabImg} alt="Detalles Fab" className="slide-img grayscale-img" /></FadeIn>
+        <FadeIn><img src={carpinteriaImg} alt="Carpintería" className="slide-img slide-img-premium grayscale-img" /></FadeIn>
+        <FadeIn><img src={detallesFabImg} alt="Detalles Fab" className="slide-img slide-img-premium grayscale-img" /></FadeIn>
 
         <FadeIn>
-          <AutoSlideCarousel className="mt-50">
-            <div className="carousel-item grayscale-img">
+          <div className="text-center mt-50 mb-30"><span className="section-subtitle" style={{fontSize: '0.9rem', color: 'var(--text-secondary)'}}>Desliza las cartas para ver el proceso</span></div>
+          <Swiper
+            effect={'cards'}
+            grabCursor={true}
+            modules={[EffectCards, Autoplay]}
+            autoplay={{ delay: 3500, disableOnInteraction: false }}
+            className="cards-swiper"
+          >
+            <SwiperSlide className="grayscale-img">
               <video src={fabricaVideo} autoPlay loop muted playsInline />
-            </div>
-            <div className="carousel-item grayscale-img"><img src={fabrica1Img} alt="Proceso 1" /></div>
-            <div className="carousel-item grayscale-img"><img src={fabrica2Img} alt="Proceso 2" /></div>
-            <div className="carousel-item grayscale-img"><img src={fabrica3Img} alt="Proceso 3" /></div>
-            <div className="carousel-item grayscale-img"><img src={fabrica4Img} alt="Proceso 4" /></div>
-          </AutoSlideCarousel>
+            </SwiperSlide>
+            <SwiperSlide className="grayscale-img"><img src={fabrica1Img} alt="Proceso 1" /></SwiperSlide>
+            <SwiperSlide className="grayscale-img"><img src={fabrica2Img} alt="Proceso 2" /></SwiperSlide>
+            <SwiperSlide className="grayscale-img"><img src={fabrica3Img} alt="Proceso 3" /></SwiperSlide>
+            <SwiperSlide className="grayscale-img"><img src={fabrica4Img} alt="Proceso 4" /></SwiperSlide>
+          </Swiper>
         </FadeIn>
       </section>
 
       {/* 5. AMBIENTES Y REFLEXIÓN */}
-      <section id="ambientes" className="spacing-section">
+      <section id="ambientes" className="spacing-section" style={{ position: 'relative' }}>
         <div className="text-center mb-50">
           <FadeIn><span className="section-subtitle">05. Proyecto Final</span></FadeIn>
           <FadeIn><h2 className="section-title">Diseño en el Espacio</h2></FadeIn>
         </div>
         
         <FadeIn>
-          <AutoSlideCarousel className="mt-50">
-            <div className="carousel-item"><img src={ambiente1Img} alt="Ambiente 1" /></div>
-            <div className="carousel-item"><img src={ambiente2Img} alt="Ambiente 2" /></div>
-            <div className="carousel-item"><img src={ambiente3Img} alt="Ambiente 3" /></div>
-            <div className="carousel-item"><img src={ambiente4Img} alt="Ambiente 4" /></div>
-            <div className="carousel-item"><img src={ambiente5Img} alt="Ambiente 5" /></div>
-          </AutoSlideCarousel>
+          <Swiper
+            effect={'coverflow'}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={'auto'}
+            coverflowEffect={{
+              rotate: 15,
+              stretch: 0,
+              depth: 300,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            autoplay={{ delay: 3500, disableOnInteraction: false }}
+            pagination={{ clickable: true }}
+            modules={[EffectCoverflow, Autoplay, Pagination]}
+            className="coverflow-swiper mt-50"
+          >
+            <SwiperSlide><img src={ambiente1Img} alt="Ambiente 1" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente2Img} alt="Ambiente 2" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente3Img} alt="Ambiente 3" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente4Img} alt="Ambiente 4" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente5Img} alt="Ambiente 5" /></SwiperSlide>
+          </Swiper>
         </FadeIn>
 
         <div className="full-bleed-section">
