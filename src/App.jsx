@@ -3,35 +3,29 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, FileText, Lightbulb, PenTool, Download, Sun, Moon, Hammer } from 'lucide-react';
 import './index.css';
 
-import heroImg from './assets/portada.png';
-import idea1Img from './assets/idea-1.jpeg';
-import idea2Img from './assets/idea-2.jpeg';
-import idea3Img from './assets/idea-3.jpeg';
+import heroImg from './assets/portada.jpeg';
+import maquetaFrente from './assets/maqueta4_frente.jpeg';
+import maquetaDetras from './assets/maqueta4_detras.jpeg';
 import retamaImg from './assets/retama_0.jpg';
 import bocetosImg from './assets/bocetos.jpeg';
-import fichaTecnicaImg from './assets/ficha-tecnica.jpeg';
+import baseImg from './assets/base.jpeg';
 import presentacionPdf from './assets/Presentacion-proyecto.pdf';
-import fabrica1Img from './assets/proceso-fabricacion-1.jpeg';
-import fabrica2Img from './assets/proceso-fabricacion-2.jpeg';
-import fabrica3Img from './assets/proceso-fabricacion-3.jpeg';
-import fabrica4Img from './assets/proceso-fabricacion-4.jpeg';
+import fabrica1Img from './assets/silla-detalle-1.jpeg';
+import fabrica2Img from './assets/silla-detalle-2.jpeg';
+import fabrica3Img from './assets/silla-detalle-3.jpeg';
+import fabrica4Img from './assets/silla-detalle-4.jpeg';
+import fabrica5Img from './assets/silla-detalle-5.jpeg';
 import fabricaVideo from './assets/proceso-fabricacion-video.mp4';
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState('dark');
-
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 300]);
   const heroOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,13 +55,10 @@ function App() {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} style={{ flexWrap: 'wrap', justifyContent: 'center', gap: '2rem' }}>
         <div className="logo" style={{ marginRight: 'auto' }}>AUREON RETAMA</div>
         <div className="nav-links" style={{ overflowX: 'auto', paddingBottom: '5px', alignItems: 'center' }}>
-          <a href="#ideas">Ideas</a>
-          <a href="#bocetos">Bocetos</a>
-          <a href="#ficha-tecnica">Ficha Técnica</a>
-          <a href="#fabricacion">Fabricación</a>
-          <button onClick={toggleTheme} style={{ background: 'none', border: 'none', color: 'var(--text-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', marginLeft: '10px' }} aria-label="Cambiar Tema">
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+          <a href="#ideas">Inspiración</a>
+          <a href="#bocetos">Diseño</a>
+          <a href="#ficha-tecnica">Estructura</a>
+          <a href="#fabricacion">Detalles</a>
         </div>
       </nav>
 
@@ -123,23 +114,17 @@ function App() {
             </motion.div>
           </div>
 
-          <motion.div className="gallery-grid" variants={staggerContainer}>
+          <motion.div className="gallery-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))' }} variants={staggerContainer}>
             <motion.div className="gallery-item" variants={fadeInUp}>
-              <img src={idea1Img} alt="Idea 1" />
+              <img src={maquetaFrente} alt="Vista Frontal" />
               <div className="gallery-overlay">
-                <h3>Idea 01</h3>
+                <h3>Vista Frontal</h3>
               </div>
             </motion.div>
             <motion.div className="gallery-item" variants={fadeInUp}>
-              <img src={idea2Img} alt="Idea 2" />
+              <img src={maquetaDetras} alt="Vista Posterior" />
               <div className="gallery-overlay">
-                <h3>Idea 02</h3>
-              </div>
-            </motion.div>
-            <motion.div className="gallery-item" variants={fadeInUp}>
-              <img src={idea3Img} alt="Idea 3" />
-              <div className="gallery-overlay">
-                <h3>Idea 03</h3>
+                <h3>Vista Posterior</h3>
               </div>
             </motion.div>
           </motion.div>
@@ -171,7 +156,7 @@ function App() {
             </motion.div>
           </div>
           <motion.div className="project-image" style={{ direction: 'ltr' }} variants={fadeInUp}>
-            <img src={bocetosImg} alt="Bocetos" style={{ width: '100%', maxHeight: '600px', objectFit: 'cover' }} />
+            <img src={bocetosImg} className="grayscale-img" alt="Bocetos" style={{ width: '100%', maxHeight: '600px', objectFit: 'cover', borderRadius: '8px' }} />
           </motion.div>
         </motion.div>
       </section>
@@ -189,10 +174,10 @@ function App() {
           
           <motion.div className="gallery-grid" style={{ gridTemplateColumns: '1fr', marginBottom: '50px' }} variants={staggerContainer}>
             <motion.div className="gallery-item" variants={fadeInUp}>
-              <img src={fichaTecnicaImg} alt="Ficha Técnica" style={{ height: 'auto', maxHeight: 'none' }} />
+              <img src={baseImg} className="grayscale-img" alt="Base Estructural" style={{ height: 'auto', maxHeight: 'none', borderRadius: '8px' }} />
               <div className="gallery-overlay">
-                <h3>Cuadro de Despiece</h3>
-                <p>Estructura dorada, madera contraplacada y textil bouclé</p>
+                <h3>Estructura Metálica</h3>
+                <p>Base en tubo de fierro galvanizado</p>
               </div>
             </motion.div>
           </motion.div>
@@ -223,20 +208,23 @@ function App() {
           </div>
           
           <motion.div className="gallery-grid" variants={staggerContainer} style={{ marginBottom: '30px' }}>
-            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }} style={{ gridColumn: '1 / -1', height: '500px' }}>
+            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }} style={{ gridColumn: '1 / -1', height: '500px' }}>
               <video src={fabricaVideo} autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
             </motion.div>
-            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }}>
-              <img src={fabrica1Img} alt="Proceso 1" />
+            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
+              <img src={fabrica1Img} alt="Detalle 1" style={{ borderRadius: '8px' }} />
             </motion.div>
-            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }}>
-              <img src={fabrica2Img} alt="Proceso 2" />
+            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
+              <img src={fabrica2Img} alt="Detalle 2" style={{ borderRadius: '8px' }} />
             </motion.div>
-            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }}>
-              <img src={fabrica3Img} alt="Proceso 3" />
+            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
+              <img src={fabrica3Img} alt="Detalle 3" style={{ borderRadius: '8px' }} />
             </motion.div>
-            <motion.div className="gallery-item" variants={fadeInUp} whileHover={{ y: -10 }}>
-              <img src={fabrica4Img} alt="Proceso 4" />
+            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
+              <img src={fabrica4Img} alt="Detalle 4" style={{ borderRadius: '8px' }} />
+            </motion.div>
+            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
+              <img src={fabrica5Img} alt="Detalle 5" style={{ borderRadius: '8px' }} />
             </motion.div>
           </motion.div>
         </motion.div>
