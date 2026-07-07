@@ -207,24 +207,24 @@ function App() {
             </motion.p>
           </div>
           
-          <motion.div className="gallery-grid" variants={staggerContainer} style={{ marginBottom: '30px' }}>
-            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }} style={{ gridColumn: '1 / -1', height: '500px' }}>
-              <video src={fabricaVideo} autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
+          <motion.div className="carousel" variants={staggerContainer} style={{ marginBottom: '30px' }}>
+            <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
+              <video src={fabricaVideo} autoPlay loop muted playsInline />
             </motion.div>
-            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
-              <img src={fabrica1Img} alt="Detalle 1" style={{ borderRadius: '8px' }} />
+            <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
+              <img src={fabrica1Img} alt="Detalle 1" />
             </motion.div>
-            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
-              <img src={fabrica2Img} alt="Detalle 2" style={{ borderRadius: '8px' }} />
+            <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
+              <img src={fabrica2Img} alt="Detalle 2" />
             </motion.div>
-            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
-              <img src={fabrica3Img} alt="Detalle 3" style={{ borderRadius: '8px' }} />
+            <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
+              <img src={fabrica3Img} alt="Detalle 3" />
             </motion.div>
-            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
-              <img src={fabrica4Img} alt="Detalle 4" style={{ borderRadius: '8px' }} />
+            <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
+              <img src={fabrica4Img} alt="Detalle 4" />
             </motion.div>
-            <motion.div className="gallery-item grayscale-img" variants={fadeInUp} whileHover={{ y: -10 }}>
-              <img src={fabrica5Img} alt="Detalle 5" style={{ borderRadius: '8px' }} />
+            <motion.div className="carousel-item grayscale-img" variants={fadeInUp}>
+              <img src={fabrica5Img} alt="Detalle 5" />
             </motion.div>
           </motion.div>
         </motion.div>
