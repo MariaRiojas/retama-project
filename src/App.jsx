@@ -56,7 +56,7 @@ const FadeIn = ({ children, delay = 0, className="" }) => {
       className={className}
       initial={{ y: 50, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: false, margin: "-50px" }}
       transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay }}
     >
       {children}
