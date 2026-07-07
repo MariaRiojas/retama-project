@@ -51,6 +51,18 @@ const FadeIn = ({ children, delay = 0, className="" }) => {
   );
 };
 
+// Automatic Infinite Carousel
+const AutoCarousel = ({ children, className = "" }) => {
+  return (
+    <div className={`marquee-container ${className}`}>
+      <div className="marquee-content">
+        <div className="marquee-group">{children}</div>
+        <div className="marquee-group">{children}</div>
+      </div>
+    </div>
+  );
+};
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
@@ -133,7 +145,7 @@ function App() {
           <FadeIn><h2 className="section-title">El Amarillo Sensible</h2></FadeIn>
           <FadeIn>
             <p className="subtitle-text mb-30">
-              Diseño fundamentado en las necesidades de Jose, un ingeniero de 26 años con daltonismo. 
+              Diseño fundamentado en las necesidades de Kristell. 
               Inspirada en los pétalos abiertos de la retama andina.
             </p>
           </FadeIn>
@@ -205,15 +217,15 @@ function App() {
         <FadeIn><img src={detallesFabImg} alt="Detalles Fab" className="slide-img grayscale-img" /></FadeIn>
 
         <FadeIn>
-          <div className="carousel-vertical mt-50">
-            <div className="carousel-item grayscale-img" style={{width: '100vw', maxWidth: '800px'}}>
+          <AutoCarousel className="mt-50">
+            <div className="carousel-item grayscale-img video-item" style={{width: '100vw', maxWidth: '800px'}}>
               <video src={fabricaVideo} autoPlay loop muted playsInline />
             </div>
             <div className="carousel-item grayscale-img"><img src={fabrica1Img} alt="Proceso 1" /></div>
             <div className="carousel-item grayscale-img"><img src={fabrica2Img} alt="Proceso 2" /></div>
             <div className="carousel-item grayscale-img"><img src={fabrica3Img} alt="Proceso 3" /></div>
             <div className="carousel-item grayscale-img"><img src={fabrica4Img} alt="Proceso 4" /></div>
-          </div>
+          </AutoCarousel>
         </FadeIn>
       </section>
 
@@ -225,18 +237,20 @@ function App() {
         </div>
         
         <FadeIn>
-          <div className="carousel-horizontal">
+          <AutoCarousel>
             <div className="carousel-item"><img src={ambiente1Img} alt="Ambiente 1" /></div>
             <div className="carousel-item"><img src={ambiente2Img} alt="Ambiente 2" /></div>
             <div className="carousel-item"><img src={ambiente3Img} alt="Ambiente 3" /></div>
             <div className="carousel-item"><img src={ambiente4Img} alt="Ambiente 4" /></div>
             <div className="carousel-item"><img src={ambiente5Img} alt="Ambiente 5" /></div>
-          </div>
+          </AutoCarousel>
         </FadeIn>
 
-        <div className="mt-100">
-          <FadeIn><img src={finalImg} alt="Resultado Final" className="slide-img" /></FadeIn>
-          <FadeIn><img src={reflexionImg} alt="Reflexión" className="slide-img" /></FadeIn>
+        <div className="full-bleed-section">
+          <FadeIn><img src={finalImg} alt="Resultado Final" /></FadeIn>
+        </div>
+        <div className="full-bleed-section">
+          <FadeIn><img src={reflexionImg} alt="Reflexión" /></FadeIn>
         </div>
       </section>
 
