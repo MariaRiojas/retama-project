@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, FileText, Lightbulb, PenTool, Download } from 'lucide-react';
 import Lenis from 'lenis';
