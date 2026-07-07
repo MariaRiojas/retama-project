@@ -281,9 +281,7 @@ function App() {
           </Swiper>
         </FadeIn>
 
-        <div className="full-bleed-section">
-          <FadeIn><img src={finalImg} alt="Resultado Final" /></FadeIn>
-        </div>
+
         <div className="full-bleed-section">
           <FadeIn><img src={portada2Img} alt="Portada Secundaria" /></FadeIn>
         </div>
