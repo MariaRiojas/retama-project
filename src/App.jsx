@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, FileText, Lightbulb, PenTool, Download } from 'lucide-react';
 import Lenis from 'lenis';
 import './index.css';
@@ -36,36 +36,18 @@ import reflexionImg from './assets/reflexion.jpg';
 
 import presentacionPdf from './assets/Presentacion-proyecto.pdf';
 
-// Parallax Image Component
-const ParallaxImage = ({ src, alt, className = "", style = {} }) => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-  
+// Fade up container
+const FadeIn = ({ children, delay = 0, className="" }) => {
   return (
-    <div ref={ref} className={`parallax-container ${className}`} style={{ ...style, overflow: 'hidden', position: 'relative' }}>
-      <motion.img 
-        src={src} 
-        alt={alt} 
-        style={{ y, width: '100%', height: '120%', objectFit: 'cover', top: '-10%', position: 'absolute', left: 0 }} 
-      />
-    </div>
-  );
-};
-
-// Fade up text reveal
-const RevealText = ({ children, delay = 0, className="" }) => {
-  return (
-    <div style={{ overflow: 'hidden', display: 'inline-block' }} className={className}>
-      <motion.div
-        initial={{ y: "100%", opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay }}
-      >
-        {children}
-      </motion.div>
-    </div>
+    <motion.div
+      className={className}
+      initial={{ y: 50, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay }}
+    >
+      {children}
+    </motion.div>
   );
 };
 
@@ -79,7 +61,6 @@ function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'dark');
     
-    // Smooth scrolling setup
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -106,29 +87,16 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.25, 0.1, 0.25, 1] } }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 }
-    }
-  };
-
   return (
     <>
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="logo">AUREON RETAMA</div>
         <div className="nav-links">
-          <a href="#historia">Historia</a>
+          <a href="#historia">Identidad</a>
           <a href="#diseno">Diseño</a>
           <a href="#estructura">Estructura</a>
           <a href="#fabricacion">Fabricación</a>
-          <a href="#ambientes">Ambientes</a>
+          <a href="#ambientes">Final</a>
         </div>
       </nav>
 
@@ -140,16 +108,14 @@ function App() {
         <div className="hero-overlay"></div>
         
         <div className="hero-content">
-          <RevealText className="section-subtitle">Mobiliario Inteligente</RevealText>
-          <div>
-            <RevealText className="hero-title">Aureon</RevealText>
-          </div>
-          <div>
-            <RevealText className="hero-title" delay={0.1}>Retama</RevealText>
-          </div>
-          <motion.p className="hero-description" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 1 }}>
-            Inspirada en la flora andina, una silla envolvente que transmite protección, calidez y confort.
-          </motion.p>
+          <FadeIn className="section-subtitle">Mobiliario Inteligente</FadeIn>
+          <FadeIn delay={0.1}><h1 className="hero-title">Aureon</h1></FadeIn>
+          <FadeIn delay={0.2}><h1 className="hero-title">Retama</h1></FadeIn>
+          <FadeIn delay={0.4}>
+            <p className="hero-description">
+              Inspirada en la flora andina, una silla envolvente que transmite protección, calidez y confort.
+            </p>
+          </FadeIn>
         </div>
         
         <motion.div 
@@ -162,127 +128,115 @@ function App() {
 
       {/* 1. STORYTELLING & INSPIRACIÓN */}
       <section id="historia" className="spacing-section">
-        <div className="asymmetric-grid">
-          <div className="text-block">
-            <RevealText className="section-subtitle">01. Identidad</RevealText>
-            <RevealText><h2 className="section-title">El Amarillo Sensible</h2></RevealText>
-            <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+        <div className="text-center mb-50">
+          <FadeIn><span className="section-subtitle">01. Identidad</span></FadeIn>
+          <FadeIn><h2 className="section-title">El Amarillo Sensible</h2></FadeIn>
+          <FadeIn>
+            <p className="subtitle-text mb-30">
               Diseño fundamentado en las necesidades de Jose, un ingeniero de 26 años con daltonismo. 
-              Inspirada en los pétalos abiertos de la retama andina, la silla emplea un estímulo cromático de alta visibilidad para conectar identidad, ergonomía y contención emocional.
-            </motion.p>
-          </div>
-          <ParallaxImage src={retamaImg} alt="Flor de Retama" className="img-main" />
+              Inspirada en los pétalos abiertos de la retama andina.
+            </p>
+          </FadeIn>
         </div>
         
-        <div className="asymmetric-grid reverse mt-100">
-          <div className="text-block">
-            <RevealText><h3 className="section-title-sm">Ergonomía Envolvente</h3></RevealText>
-            <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              La forma se concibe como un capullo protector que resguarda al usuario. El trabajo con texturas profundas potencia la percepción visual y táctil del usuario.
-            </motion.p>
-          </div>
-          <div className="image-group">
-            <ParallaxImage src={coloresImg} alt="Colores Silla" className="img-tall" />
-            <ParallaxImage src={storytellingImg} alt="Storytelling" className="img-square" />
-          </div>
+        <FadeIn><img src={storytellingImg} alt="Storytelling" className="slide-img" /></FadeIn>
+        
+        <div className="grid-2-cols mt-50">
+          <FadeIn><img src={retamaImg} alt="Flor de Retama" style={{aspectRatio: '1/1', objectFit: 'cover'}}/></FadeIn>
+          <FadeIn delay={0.2}>
+             <div style={{height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                <h3 className="section-title-sm">Ergonomía Envolvente</h3>
+                <p style={{color: 'var(--text-secondary)'}}>La forma se concibe como un capullo protector que resguarda al usuario. El trabajo con texturas profundas potencia la percepción visual y táctil del usuario.</p>
+             </div>
+          </FadeIn>
         </div>
+        
+        <FadeIn><img src={coloresImg} alt="Colores Silla" className="slide-img mt-50" /></FadeIn>
       </section>
 
       {/* 2. DISEÑO & MAQUETAS */}
       <section id="diseno" className="bg-dark spacing-section">
         <div className="text-center mb-50">
-          <RevealText className="section-subtitle">02. Diseño</RevealText>
-          <RevealText><h2 className="section-title">De la Idea a la Forma</h2></RevealText>
+          <FadeIn><span className="section-subtitle">02. Diseño</span></FadeIn>
+          <FadeIn><h2 className="section-title">De la Idea a la Forma</h2></FadeIn>
         </div>
         
-        <div className="bocetos-container">
-          <ParallaxImage src={bocetosImg} alt="Bocetos" className="grayscale-img hero-width" style={{ height: '500px' }} />
-        </div>
+        <FadeIn><img src={bocetosImg} alt="Bocetos" className="slide-img grayscale-img" /></FadeIn>
         
-        <motion.div className="carousel mt-50" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <motion.div className="carousel-item" variants={fadeInUp}>
-            <img src={maquetaFrente} alt="Vista Frontal" />
-            <div className="gallery-overlay"><h3>Vista Frontal</h3></div>
-          </motion.div>
-          <motion.div className="carousel-item" variants={fadeInUp}>
-            <img src={maquetaDetras} alt="Vista Posterior" />
-            <div className="gallery-overlay"><h3>Vista Posterior</h3></div>
-          </motion.div>
-        </motion.div>
+        <div className="grid-2-cols mt-50">
+          <FadeIn delay={0.1}><img src={maquetaFrente} alt="Vista Frontal" /></FadeIn>
+          <FadeIn delay={0.2}><img src={maquetaDetras} alt="Vista Posterior" /></FadeIn>
+        </div>
       </section>
 
       {/* 3. ESTRUCTURA */}
       <section id="estructura" className="spacing-section">
         <div className="text-center mb-50">
-          <RevealText className="section-subtitle">03. Estructura</RevealText>
-          <RevealText><h2 className="section-title">Ingeniería y Soporte</h2></RevealText>
+          <FadeIn><span className="section-subtitle">03. Estructura</span></FadeIn>
+          <FadeIn><h2 className="section-title">Ingeniería y Soporte</h2></FadeIn>
         </div>
 
-        <div className="masonry-grid">
-          <ParallaxImage src={cuadroDespieceImg} alt="Cuadro de Despiece" className="grayscale-img masonry-tall" />
-          <ParallaxImage src={armazonImg} alt="Armazón Estructural" className="grayscale-img masonry-wide" />
-          <ParallaxImage src={baseSillaImg} alt="Estructura Base" className="grayscale-img masonry-square" />
-          <ParallaxImage src={baseImg} alt="Base" className="grayscale-img masonry-square" />
+        <FadeIn><img src={cuadroDespieceImg} alt="Cuadro de Despiece" className="slide-img grayscale-img" /></FadeIn>
+        <FadeIn><img src={armazonImg} alt="Armazón Estructural" className="slide-img grayscale-img" /></FadeIn>
+        <FadeIn><img src={baseSillaImg} alt="Estructura Base" className="slide-img grayscale-img" /></FadeIn>
+        
+        <div className="text-center mt-50">
+          <FadeIn>
+            <img src={baseImg} alt="Base Foto" style={{width: '100%', maxWidth: '600px', margin: '0 auto', borderRadius: '8px'}} className="grayscale-img" />
+          </FadeIn>
         </div>
         
-        <motion.div className="text-center mt-50" variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <a href={presentacionPdf} download="Presentacion-proyecto.pdf" className="btn magnetic-btn">
+        <FadeIn className="text-center mt-50">
+          <a href={presentacionPdf} download="Presentacion-proyecto.pdf" className="btn">
             <Download size={20} />
             Descargar Dossier Completo
           </a>
-        </motion.div>
+        </FadeIn>
       </section>
 
       {/* 4. FABRICACIÓN (PROCESO) */}
       <section id="fabricacion" className="bg-dark spacing-section">
         <div className="text-center mb-50">
-          <RevealText className="section-subtitle">04. Realización</RevealText>
-          <RevealText><h2 className="section-title">Proceso de Fabricación</h2></RevealText>
-          <motion.p className="subtitle-text" variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            Artesanía combinada con procesos industriales de alta resistencia.
-          </motion.p>
+          <FadeIn><span className="section-subtitle">04. Realización</span></FadeIn>
+          <FadeIn><h2 className="section-title">Proceso de Fabricación</h2></FadeIn>
         </div>
         
-        <motion.div className="carousel" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <motion.div className="carousel-item grayscale-img video-item" variants={fadeInUp}>
-            <video src={fabricaVideo} autoPlay loop muted playsInline />
-          </motion.div>
-          <motion.div className="carousel-item grayscale-img" variants={fadeInUp}><img src={carpinteriaImg} alt="Carpintería" /></motion.div>
-          <motion.div className="carousel-item grayscale-img" variants={fadeInUp}><img src={detallesFabImg} alt="Detalles Fab" /></motion.div>
-          <motion.div className="carousel-item grayscale-img" variants={fadeInUp}><img src={fabrica1Img} alt="Proceso 1" /></motion.div>
-          <motion.div className="carousel-item grayscale-img" variants={fadeInUp}><img src={fabrica2Img} alt="Proceso 2" /></motion.div>
-          <motion.div className="carousel-item grayscale-img" variants={fadeInUp}><img src={fabrica3Img} alt="Proceso 3" /></motion.div>
-          <motion.div className="carousel-item grayscale-img" variants={fadeInUp}><img src={fabrica4Img} alt="Proceso 4" /></motion.div>
-        </motion.div>
+        <FadeIn><img src={carpinteriaImg} alt="Carpintería" className="slide-img grayscale-img" /></FadeIn>
+        <FadeIn><img src={detallesFabImg} alt="Detalles Fab" className="slide-img grayscale-img" /></FadeIn>
+
+        <FadeIn>
+          <div className="carousel-vertical mt-50">
+            <div className="carousel-item grayscale-img" style={{width: '100vw', maxWidth: '800px'}}>
+              <video src={fabricaVideo} autoPlay loop muted playsInline />
+            </div>
+            <div className="carousel-item grayscale-img"><img src={fabrica1Img} alt="Proceso 1" /></div>
+            <div className="carousel-item grayscale-img"><img src={fabrica2Img} alt="Proceso 2" /></div>
+            <div className="carousel-item grayscale-img"><img src={fabrica3Img} alt="Proceso 3" /></div>
+            <div className="carousel-item grayscale-img"><img src={fabrica4Img} alt="Proceso 4" /></div>
+          </div>
+        </FadeIn>
       </section>
 
       {/* 5. AMBIENTES Y REFLEXIÓN */}
       <section id="ambientes" className="spacing-section">
         <div className="text-center mb-50">
-          <RevealText className="section-subtitle">05. Proyecto Final</RevealText>
-          <RevealText><h2 className="section-title">Diseño en el Espacio</h2></RevealText>
+          <FadeIn><span className="section-subtitle">05. Proyecto Final</span></FadeIn>
+          <FadeIn><h2 className="section-title">Diseño en el Espacio</h2></FadeIn>
         </div>
         
-        <motion.div className="carousel" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <motion.div className="carousel-item" variants={fadeInUp}><img src={ambiente1Img} alt="Ambiente 1" /></motion.div>
-          <motion.div className="carousel-item" variants={fadeInUp}><img src={ambiente2Img} alt="Ambiente 2" /></motion.div>
-          <motion.div className="carousel-item" variants={fadeInUp}><img src={ambiente3Img} alt="Ambiente 3" /></motion.div>
-          <motion.div className="carousel-item" variants={fadeInUp}><img src={ambiente4Img} alt="Ambiente 4" /></motion.div>
-          <motion.div className="carousel-item" variants={fadeInUp}><img src={ambiente5Img} alt="Ambiente 5" /></motion.div>
-        </motion.div>
+        <FadeIn>
+          <div className="carousel-horizontal">
+            <div className="carousel-item"><img src={ambiente1Img} alt="Ambiente 1" /></div>
+            <div className="carousel-item"><img src={ambiente2Img} alt="Ambiente 2" /></div>
+            <div className="carousel-item"><img src={ambiente3Img} alt="Ambiente 3" /></div>
+            <div className="carousel-item"><img src={ambiente4Img} alt="Ambiente 4" /></div>
+            <div className="carousel-item"><img src={ambiente5Img} alt="Ambiente 5" /></div>
+          </div>
+        </FadeIn>
 
-        <div className="asymmetric-grid mt-100">
-          <div className="text-block">
-            <RevealText><h3 className="section-title-sm">Conclusión del Proyecto</h3></RevealText>
-            <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              Aureon Retama demuestra cómo la arquitectura interior y el diseño de mobiliario pueden fusionarse para crear soluciones sensibles. 
-              No es solo un asiento, es un espacio de contención emocional que se adapta al usuario y al ambiente.
-            </motion.p>
-          </div>
-          <div className="image-group">
-            <ParallaxImage src={finalImg} alt="Resultado Final" className="img-tall" />
-            <ParallaxImage src={reflexionImg} alt="Reflexión" className="img-square" />
-          </div>
+        <div className="mt-100">
+          <FadeIn><img src={finalImg} alt="Resultado Final" className="slide-img" /></FadeIn>
+          <FadeIn><img src={reflexionImg} alt="Reflexión" className="slide-img" /></FadeIn>
         </div>
       </section>
 
