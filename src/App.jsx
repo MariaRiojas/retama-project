@@ -37,6 +37,13 @@ import ambiente2Img from './assets/silla-detalle-2.jpeg';
 import ambiente3Img from './assets/silla-detalle-3.jpeg';
 import ambiente4Img from './assets/silla-detalle-4.jpeg';
 import ambiente5Img from './assets/silla-detalle-5.jpeg';
+import ambiente6Img from './assets/silla-detalle-6.jpeg';
+import ambiente7Img from './assets/silla-detalle-7.jpeg';
+import ambiente8Img from './assets/silla-detalle-8.jpeg';
+import ambiente9Img from './assets/silla-detalle-9.jpeg';
+
+import portada2Img from './assets/portada_2.jpeg';
+import sillaImg from './assets/silla.jpeg';
 import finalImg from './assets/final.jpg';
 import reflexionImg from './assets/reflexion.jpg';
 
@@ -174,6 +181,8 @@ function App() {
         
         <FadeIn><img src={bocetosImg} alt="Bocetos" className="slide-img slide-img-premium grayscale-img" /></FadeIn>
         
+        <FadeIn><img src={sillaImg} alt="Silla" className="slide-img-premium mt-50" style={{width: '100%', maxWidth: '800px', margin: '0 auto', display: 'block'}} /></FadeIn>
+        
         <div className="grid-2-cols mt-50">
           <FadeIn delay={0.1}><img src={maquetaFrente} alt="Vista Frontal" className="slide-img-premium" style={{width: '100%'}} /></FadeIn>
           <FadeIn delay={0.2}><img src={maquetaDetras} alt="Vista Posterior" className="slide-img-premium" style={{width: '100%'}} /></FadeIn>
@@ -260,16 +269,23 @@ function App() {
             modules={[EffectCoverflow, Autoplay, Pagination]}
             className="coverflow-swiper mt-50"
           >
-            <SwiperSlide><img src={ambiente1Img} alt="Ambiente 1" /></SwiperSlide>
-            <SwiperSlide><img src={ambiente2Img} alt="Ambiente 2" /></SwiperSlide>
-            <SwiperSlide><img src={ambiente3Img} alt="Ambiente 3" /></SwiperSlide>
-            <SwiperSlide><img src={ambiente4Img} alt="Ambiente 4" /></SwiperSlide>
-            <SwiperSlide><img src={ambiente5Img} alt="Ambiente 5" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente1Img} alt="A1" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente2Img} alt="A2" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente3Img} alt="A3" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente4Img} alt="A4" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente5Img} alt="A5" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente6Img} alt="A6" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente7Img} alt="A7" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente8Img} alt="A8" /></SwiperSlide>
+            <SwiperSlide><img src={ambiente9Img} alt="A9" /></SwiperSlide>
           </Swiper>
         </FadeIn>
 
         <div className="full-bleed-section">
           <FadeIn><img src={finalImg} alt="Resultado Final" /></FadeIn>
+        </div>
+        <div className="full-bleed-section">
+          <FadeIn><img src={portada2Img} alt="Portada Secundaria" /></FadeIn>
         </div>
         <div className="full-bleed-section">
           <FadeIn>
