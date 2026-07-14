@@ -45,6 +45,8 @@ import ambiente9Img from './assets/silla-detalle-9.jpeg';
 import portada2Img from './assets/portada_2.jpeg';
 import sillaImg from './assets/silla.jpeg';
 import finalImg from './assets/final.jpg';
+import resFinal1Img from './assets/resultado_final_1.jpeg';
+import resFinal2Img from './assets/resultado_final_2.jpeg';
 import reflexionImg from './assets/reflexion.jpg';
 
 import presentacionPdf from './assets/Presentacion-proyecto.pdf';
@@ -281,6 +283,15 @@ function App() {
           </Swiper>
         </FadeIn>
 
+        {/* STAGGERED EDITORIAL GRID FOR VERTICAL FINAL PHOTOS */}
+        <div className="grid-2-cols" style={{ marginTop: '100px', marginBottom: '100px', alignItems: 'start' }}>
+          <FadeIn>
+            <img src={resFinal1Img} alt="Resultado Final 1" className="slide-img-premium" style={{ width: '100%' }} />
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <img src={resFinal2Img} alt="Resultado Final 2" className="slide-img-premium" style={{ width: '100%', marginTop: '15%' }} />
+          </FadeIn>
+        </div>
 
         <div className="full-bleed-section">
           <FadeIn><img src={portada2Img} alt="Portada Secundaria" /></FadeIn>
